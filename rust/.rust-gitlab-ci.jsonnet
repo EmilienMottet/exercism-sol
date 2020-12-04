@@ -4,7 +4,7 @@ local lang = std.extVar('lang');
 local RustTestJob(name) = {
   ['.' + lang + '-' + name + '-gitlab-ci.yml']: {
     default: {
-      image: 'rust:latest',
+      image: 'rustlang/rust:nightly',
     },
     ['test-' + lang + '-' + name + '-exercism']: {
       script: [
