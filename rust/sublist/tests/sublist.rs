@@ -1,3 +1,7 @@
+#![feature(test)]
+extern crate test;
+use test::Bencher;
+
 use sublist::{sublist, Comparison};
 
 #[test]
@@ -118,4 +122,13 @@ fn recurring_values_unequal() {
         Comparison::Unequal,
         sublist(&[1, 2, 1, 2, 3], &[1, 2, 3, 1, 2, 3, 2, 3, 2, 1])
     );
+}
+
+
+#[bench]
+fn bench_huge_sublist_not_in_huge_list(b: &mut Bencher) {
+    let v1: Vec<u64> = (10..1_000_001).collect();
+    let v2: Vec<u64> = (1..1_000_000).collect();
+
+    b.iter(|| sublist(&v1, &v2));
 }
