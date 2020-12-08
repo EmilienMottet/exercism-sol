@@ -1,42 +1,18 @@
-# frozen_string_literal: true
-
-# SpaceAge
 class SpaceAge
   EARTH_UNIT = 365.25 * 24 * 60 * 60
+  VENUS_UNIT = EARTH_UNIT * 0.61519726
+  MARS_UNIT = EARTH_UNIT * 1.8808158
+  NEPTUNE_UNIT = EARTH_UNIT * 164.79132
+  JUPITER_UNIT = EARTH_UNIT * 11.862615
+  SATURN_UNIT = EARTH_UNIT * 29.447498
+  URANUS_UNIT = EARTH_UNIT * 84.016846
+  MERCURY_UNIT = EARTH_UNIT * 0.2408467
+
+  attr_reader :age
 
   def initialize(age)
-    @age = age / EARTH_UNIT
+    @age = age
   end
 
-  def on_earth
-    @age
-  end
-
-  def on_venus
-    @age / 0.61519726
-  end
-
-  def on_mars
-    @age / 1.8808158
-  end
-
-  def on_neptune
-    @age / 164.79132
-  end
-
-  def on_jupiter
-    @age / 11.862615
-  end
-
-  def on_saturn
-    @age / 29.447498
-  end
-
-  def on_uranus
-    @age / 84.016846
-  end
-
-  def on_mercury
-    @age / 0.2408467
-  end
+  constants.each { |x| define_method("on_#{x[0..-6].downcase}") { age / self.class.const_get(x) } }
 end
