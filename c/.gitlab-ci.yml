@@ -15,7 +15,7 @@ generate_trigger_gitlab-ci:
   script:
     - echo $CI_PIPELINE_SOURCE
     - echo $DIR_TO_BE_TESTED
-    - jsonnet -m . --ext-str exercism_projects="${DIR_TO_BE_TESTED}" --ext-str lang="$(echo $CI_PROJECT_NAME | sed -En 's/exercism-(.*)-sol/\1/p')" ".generate-config.jsonnet"
+    - jsonnet -m . --ext-str exercism_projects="echo $DIR_TO_BE_TESTED | sed -En 's/ /\n/p'" --ext-str lang="$(echo $CI_PROJECT_NAME | sed -En 's/exercism-(.*)-sol/\1/p')" ".generate-config.jsonnet"
   dependencies:
     - build_vars
   artifacts:
