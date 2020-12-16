@@ -25,6 +25,7 @@ local JobHandler(name) = {
       entrypoint: [''],
     },
     script: [
+                                  'echo $CI_PIPELINE_SOURCE',
       'jsonnet -m . --ext-str exercism_projects="$(ls -d */)" --ext-str lang="' + lang + '" ".' + lang + '-gitlab-ci.jsonnet"',
     ],
     artifacts: {

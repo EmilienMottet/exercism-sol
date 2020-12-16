@@ -4,6 +4,7 @@ generate_trigger_gitlab-ci:
     name: bitnami/jsonnet:latest
     entrypoint: [""]
   script:
+    - echo $CI_PIPELINE_SOURCE
     - jsonnet -m . --ext-str exercism_projects="$(ls -d */)" --ext-str lang="$(echo $CI_PROJECT_NAME | sed -En 's/exercism-(.*)-sol/\1/p')" ".generate-config.jsonnet"
   artifacts:
     paths:
