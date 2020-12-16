@@ -1,7 +1,7 @@
 build_vars:
   stage: .pre
   script:
-    - echo DIR_TO_BE_TESTED=\"$(ls -1 -d */ )\" >> build.env
+    - echo DIR_TO_BE_TESTED=$(ls -1 -d */ ) >> build.env
     - cat build.env
   artifacts:
     reports:
@@ -26,6 +26,8 @@ trigger-tests:
   stage: test
   needs:
     - generate_trigger_gitlab-ci
+    - job: build_vars
+      artifacts: true
   trigger:
     include:
       - artifact: .generated-config.yml
