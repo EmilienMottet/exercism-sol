@@ -2,6 +2,7 @@ build_vars:
   stage: .pre
   script:
     - echo "DIR_TO_BE_TESTED=$(ls -d */)" >> build.env
+    - cat build.env
   artifacts:
     reports:
       dotenv: build.env
