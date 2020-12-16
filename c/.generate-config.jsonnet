@@ -13,7 +13,6 @@ local JobHandler(name) = {
       ],
       strategy: 'depend',
     },
-    only: { changes: [ name + '/*' ] },
   },
 };
 

@@ -1,3 +1,11 @@
+build_vars:
+  stage: .pre
+  script:
+    - echo "DIR_TO_BE_TESTED=$(ls -d */)" >> build.env
+  artifacts:
+    reports:
+      dotenv: build.env
+
 generate_trigger_gitlab-ci:
   stage: build
   image:
@@ -6,6 +14,8 @@ generate_trigger_gitlab-ci:
   script:
     - echo $CI_PIPELINE_SOURCE
     - jsonnet -m . --ext-str exercism_projects="$(ls -d */)" --ext-str lang="$(echo $CI_PROJECT_NAME | sed -En 's/exercism-(.*)-sol/\1/p')" ".generate-config.jsonnet"
+  dependencies:
+    - build_vars
   artifacts:
     paths:
       - .generated-config.yml
