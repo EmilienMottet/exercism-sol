@@ -1,7 +1,7 @@
 build_vars:
   stage: .pre
   script:
-    - echo "DIR_TO_BE_TESTED=\"$(ls -d */)\"" >> build.env
+    - echo "DIR_TO_BE_TESTED=\"$(ls -1 -d */ )\"" >> build.env
     - cat build.env
   artifacts:
     reports:
