@@ -24,7 +24,7 @@ generate_trigger_gitlab-ci:
 
 trigger-tests:
   stage: test
-  needs:
+  dependencies:
     - generate_trigger_gitlab-ci
   trigger:
     include:
