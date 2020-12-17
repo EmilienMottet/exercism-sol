@@ -25,7 +25,7 @@ local JobHandler(name) = {
     },
     script: [
                                   'echo $DIR_TO_BE_TESTED',
-      'jsonnet -m . --ext-str exercism_projects="$( echo $DIR_TO_BE_TESTED | sed -En \'s/ /\n/p\' )" --ext-str lang="' + lang + '" ".' + lang + '-gitlab-ci.jsonnet"',
+      'jsonnet -m . --ext-str exercism_projects="$( echo $DIR_TO_BE_TESTED | sed -En \'s/ /\\n/p\' )" --ext-str lang="' + lang + '" ".' + lang + '-gitlab-ci.jsonnet"',
     ],
     needs: [
       {
