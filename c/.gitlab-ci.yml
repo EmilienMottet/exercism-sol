@@ -33,4 +33,5 @@ trigger-tests:
       - artifact: .generated-config.yml
         job: generate_trigger_gitlab-ci
     strategy: depend
-    
+  variables:
+    PARENT_PIPELINE_ID: $CI_PIPELINE_ID    
