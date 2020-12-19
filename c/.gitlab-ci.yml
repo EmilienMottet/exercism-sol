@@ -3,8 +3,8 @@ build_vars:
   script:
     - echo DIR_TO_BE_TESTED=$(ls -1 -d */ ) >> build.env
     - cat build.env
-  # except:
-  #   - schedules
+  except:
+    - schedules
   artifacts:
     reports:
       dotenv: build.env
