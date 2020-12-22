@@ -6,17 +6,11 @@ build_vars:
         DIR_TO_BE_TESTED=$(ls -d */)
       else
         DIR_TO_BE_TESTED=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA */ | cut -d'/' -f1 | sort | uniq)
-        echo in else
-        echo $DIR_TO_TESTED
         if [ -z $DIR_TO_BE_TESTED ]; then
-         echo dans else
           DIR_TO_BE_TESTED=$(ls -d */)
         fi
-        echo after if
-        [ -z $DIR_TO_BE_TESTED ] && echo test
-        echo $DIR_TO_TESTED
       fi
-    - echo DIR_TO_BE_TESTED=$DIR_TO_TESTED >> build.env
+    - echo DIR_TO_BE_TESTED=$DIR_TO_BE_TESTED >> build.env
     - cat build.env
   artifacts:
     reports:
