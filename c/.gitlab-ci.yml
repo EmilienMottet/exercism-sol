@@ -9,9 +9,11 @@ build_vars:
         echo in else
         echo $DIR_TO_TESTED
         if [ -z $DIR_TO_BE_TESTED ]; then
+         echo dans else
           DIR_TO_BE_TESTED=$(ls -d */)
         fi
         echo after if
+        [ -z $DIR_TO_BE_TESTED ] && echo test
         echo $DIR_TO_TESTED
       fi
     - echo DIR_TO_BE_TESTED=$DIR_TO_TESTED >> build.env
