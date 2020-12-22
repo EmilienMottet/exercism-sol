@@ -5,7 +5,10 @@ build_vars:
       if [ "$CI_PIPELINE_TRIGGERED" = "true" ]; then
         DIR_TO_BE_TESTED=$(ls -d */)
       else
-        DIR_TO_BE_TESTED=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA */ | sort | uniq | dirname | basename)
+        DIR_TO_BE_TESTED=$(git diff --name-only $CI_COMMIT_BEFORE_SHA $CI_COMMIT_SHA */ | cut -d\'/\' -f1 | sort | uniq)
+        if [ -n $DIR_TO_BE_TESTED ]; then
+          DIR_TO_BE_TESTED=$(ls -d */)
+        fi
       fi
     - echo DIR_TO_BE_TESTED=$DIR_TO_TESTED >> build.env
     - cat build.env
