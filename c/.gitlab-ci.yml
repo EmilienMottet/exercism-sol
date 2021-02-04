@@ -2,8 +2,6 @@ build_vars:
   stage: .pre
   script:
     - |
-      echo $CI_COMMIT_SHA^
-      echo $CI_COMMIT_SHA
       if [ "$CI_PIPELINE_TRIGGERED" = "true" ]; then
         DIR_TO_BE_TESTED=$(ls -d */)
       else
