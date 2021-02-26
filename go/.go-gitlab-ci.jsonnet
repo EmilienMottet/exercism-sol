@@ -8,7 +8,7 @@ local GoTestJob(name) = {
     },
     ['test-' + lang + '-' + name + '-exercism']: {
       script: [
-        'go mod init ',
+        'go mod init ' + name,
         'cd ' + name,
         'go test',
       ],
