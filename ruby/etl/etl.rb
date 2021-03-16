@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
-# ETL
+#  ETL
 class ETL
   def self.transform(old)
-    res = {}
-    old.each_pair { |k, arr| arr.each { |v| res[v.downcase] = k } }
-    res
+    old.each_with_object({}) do |(k, arr), acc|
+      arr.each { |v| acc[v.downcase] = k }
+    end
   end
 end
