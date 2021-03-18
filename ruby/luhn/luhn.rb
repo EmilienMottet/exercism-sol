@@ -1,39 +1,37 @@
 # Luhn algorithm is a simple checksum formula used to check a variety of identification numbers,
 # such as credit card numbers and Canadian Social Insurance
 class Luhn
-  def self.valid?(identification_number)
-    numbers = identification_number.gsub(' ', '')
-
-    return false if numbers =~ /\D/
-    return false if numbers.length < 2
-
-    normalized_and_check?(numbers)
+  def self.valid?(identification)
+    new(identification).valid?
   end
 
-  class << self
-    private
+  private
 
-    def checksum(identification_number)
-      identification_number.reverse.map.with_index.sum do |digit, index|
-        next digit if index.even?
+  attr_reader :id, :checksum
 
-        digit *= 2
-        digit -= 9 unless digit < 10
-        digit
-      end
+  def initialize(identification)
+    @id = identification
+    @checksum = normalized
+  end
+
+  def make_checksum(strings)
+    strings.reverse.map.with_index.sum do |digit, index|
+      next digit if index.even?
+
+      digit *= 2
+      digit -= 9 unless digit < 10
+      digit
     end
+  end
 
-    def normalized(identification_number)
-      identification_number.chars.map(&:to_i)
-    end
+  def normalized
+    string = id.gsub(' ', '')
+    make_checksum(string.chars.map(&:to_i)) unless string =~ /\D/ || string.length < 2
+  end
 
-    def check?(normalized_id_number)
-      (checksum(normalized_id_number) % 10).zero?
-    end
+  public
 
-    def normalized_and_check?(identification_number)
-      normalized_id_number = normalized(identification_number)
-      check?(normalized_id_number)
-    end
+  def valid?
+    checksum && (checksum % 10).zero?
   end
 end
