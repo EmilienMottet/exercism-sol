@@ -6,11 +6,10 @@
 
 (defun armstrong-p (num)
   (eq (apply '+
-             (mapcar (lambda (d) (expt (- d
-                                          ?0)
-                                       (+ (truncate (log10 num))
-                                          1)))
-                     (number-to-string num)))
+             (mapcar
+              (lambda (d) (expt (- d ?0)
+                                (1+ (truncate (log10 num)))))
+              (number-to-string num)))
       num)
   )
 
