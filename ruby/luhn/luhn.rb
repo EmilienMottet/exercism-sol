@@ -10,23 +10,25 @@ class Luhn
   attr_reader :id, :checksum
 
   def initialize(identification)
-    @id = identification
+    @id = identification.gsub(' ', '')
     @checksum = normalized
   end
 
-  def make_checksum(strings)
-    strings.reverse.map.with_index.sum do |digit, index|
-      next digit if index.even?
-
-      digit *= 2
-      digit -= 9 unless digit < 10
-      digit
+  def make_checksum(digits)
+    digits.reverse.each_slice(2).sum do |(digit_even, digit_odd)|
+      digit_odd = 0 if digit_odd.nil?
+      digit_odd *= 2
+      digit_odd -= 9 unless digit_odd < 10
+      digit_even + digit_odd
     end
   end
 
+  def valid_format?
+    id !~ /\D/ && id.length >= 2
+  end
+
   def normalized
-    string = id.gsub(' ', '')
-    make_checksum(string.chars.map(&:to_i)) unless string =~ /\D/ || string.length < 2
+    make_checksum(id.chars.map(&:to_i)) if valid_format?
   end
 
   public
