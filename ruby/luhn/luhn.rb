@@ -16,7 +16,7 @@ class Luhn
 
   def make_checksum(digits)
     digits.reverse.each_slice(2).sum do |(even, odd)|
-      odd = 0 if odd.nil?
+      odd ||= 0
       odd *= 2
       odd -= 9 unless odd < 10
       even + odd
