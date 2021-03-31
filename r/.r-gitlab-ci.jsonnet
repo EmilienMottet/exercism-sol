@@ -9,6 +9,7 @@ local RTestJob(name) = {
     ['test-' + lang + '-' + name + '-exercism']: {
       script: [
         'cd ' + name,
+        'R -e \'install.packages(c("testthat"))\'',
         'Rscript test_*.R',
       ],
     },
